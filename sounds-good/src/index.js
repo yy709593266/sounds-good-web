@@ -1,8 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {render} from 'react-dom'
+import {Provider} from 'react-redux'
 import App from './App'
-import * as serviceWorker from './serviceWorker'
+import './assets/styles/reset.less' // 重置样式
+import 'antd/dist/antd.less'  // 引入antd样式
+import './assets/styles/common.less'  // 统一样式
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import store from './store'
 
-serviceWorker.unregister()
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
