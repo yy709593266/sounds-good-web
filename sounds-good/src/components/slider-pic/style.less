@@ -1,4 +1,23 @@
-.slide-pic{
-  height: 520px;
-  background: darkcyan;
+@primaryColor: '#FF9D00';
+.slider-pic{
+  position: relative;
+  .slider-pic-wrap{
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
+  .slider-nav-wrap{
+    position: absolute;
+    right: 40px;
+    width: 110px;
+    height: 62px;
+    .slider-nav-item{
+      cursor: pointer;
+      margin-bottom: 6px;
+      &.active{
+        border: 1px solid @primaryColor;
+      }
+    }
+  }
 }

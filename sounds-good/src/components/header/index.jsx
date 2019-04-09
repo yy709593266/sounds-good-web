@@ -6,12 +6,18 @@ class Header extends Component {
   constructor(){
     super()
     this.state = {
-      current: 'home'
+      currentMenu: 'home',
+      allMenus: [
+        {key: 'home', text: '首页'},
+        {key: 'destination', text: '目的地'},
+        {key: 'strategy', text: '旅游攻略'},
+        {key: 'hotel', text: '酒店'},
+      ]
     }
   }
   menuClick = (e) => {
     this.setState({
-      current: e.key
+      currentMenu: e.key
     })
   }
   render(){
@@ -19,20 +25,17 @@ class Header extends Component {
       <Menu
         className="justify-center"
         mode="horizontal" 
-        selectedKeys={[this.state.current]}
+        selectedKeys={[this.state.currentMenu]}
         onClick={this.menuClick}>
-        <Menu.Item key="home">
-          <Link to="/home">首页</Link>
-        </Menu.Item>
-        <Menu.Item key="destination">
-          <Link to="/destination">目的地</Link>
-        </Menu.Item>
-        <Menu.Item key="strategy">
-          <Link to="/strategy">旅游攻略</Link>
-        </Menu.Item>
-        <Menu.Item key="hotel">
-          <Link to="/hotel">酒店</Link>
-        </Menu.Item>
+        {
+          this.state.allMenus.map(item=>{
+            return (
+              <Menu.Item key={item.key}>
+                <Link to={`/${item.key}`}>{item.text}</Link>
+              </Menu.Item>
+            )
+          })
+        }
       </Menu>
     )
   }
