@@ -7,7 +7,8 @@ class SliderPic extends Component {
   constructor(){
     super()
     this.state = {
-      picList: []
+      picList: [],
+      currentIndex: 0
     }
   }
   componentWillMount(){
@@ -18,6 +19,11 @@ class SliderPic extends Component {
       this.setState({
         picList: res
       })
+    })
+  }
+  clickNav(index){
+    this.setState({
+      currentIndex: index
     })
   }
   render(){
@@ -36,10 +42,10 @@ class SliderPic extends Component {
         </Carousel>
         <div className="slider-nav-wrap">
           {
-            this.state.picList.map(item=>{
+            this.state.picList.map((item, index)=>{
               return (
-                <div key={item.id} className="slider-nav-item">
-                  <img src={item.smallUrl} alt="smallUrl"/>
+                <div key={item.id} className="slider-nav-item" onClick={this.clickNav.bind(this, index)}>
+                  <img src={item.smallUrl} className={index===this.state.currentIndex?"active":""} alt="smallUrl"/>
                 </div>
               )
             })

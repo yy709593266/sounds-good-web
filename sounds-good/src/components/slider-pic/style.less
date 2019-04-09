@@ -1,4 +1,4 @@
-@primaryColor: '#FF9D00';
+@primaryColor: #FF9D00;
 .slider-pic{
   position: relative;
   .slider-pic-wrap{
@@ -15,8 +15,12 @@
     .slider-nav-item{
       cursor: pointer;
       margin-bottom: 6px;
-      &.active{
-        border: 1px solid @primaryColor;
+      img{
+        border: 2px solid transparent;
+        border-radius: 0 5px 0 0;
+        &.active{
+          border: 2px solid @primaryColor;
+        }
       }
     }
   }
