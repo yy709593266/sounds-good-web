@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import App from './App'
 import './assets/styles/reset.less' // 重置样式
 import 'antd/dist/antd.less'  // 引入antd样式
-import './assets/styles/common.less'  // 统一样式
+import './assets/styles/common.less'  // 全局样式
 
 import store from './store'
 

@@ -10,18 +10,54 @@
   .slider-nav-wrap{
     position: absolute;
     right: 40px;
-    width: 110px;
-    height: 62px;
+    top: 50%;
+    transform: translate(0, -50%);
     .slider-nav-item{
+      width: 110px;
+      height: 62px;
       cursor: pointer;
+      overflow: hidden;
       margin-bottom: 6px;
-      img{
-        border: 2px solid transparent;
-        border-radius: 0 5px 0 0;
-        &.active{
-          border: 2px solid @primaryColor;
-        }
+      position: relative;
+      &.active:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid @primaryColor;
       }
+      img{
+        width: 100%;
+        height: 100%;
+        border-radius: 0 5px 0 0;
+      }
+    }
+    .button-calendar{
+      width: 110px;
+      height: 35px;
+      color: #fff;
+      background: #041829;
+      border-radius: 20px;
+      text-align: center;
+      line-height: 35px;
+      font-family: myCssFont3;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+  .slider-search-group{
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    width: 600px;
+    transform: translate(-50%, 0);
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+    .slider-search-radio-text{
+      color: #fff;
+      margin-bottom: 12px;
     }
   }
 }
