@@ -2,38 +2,40 @@ import React, { Component } from 'react'
 import { Carousel, Radio, Input } from 'antd'
 import './style.less'
 import { allSearchRadio } from "./const"
-import { apiGetPicList } from "./../../api"
+import Store from "./../../store/index.js"
+import * as Actions from "../../store/Actions.js"
+import { apiGetPicList } from "./../../api";
 
 class SliderPic extends Component {
   constructor(){
     super()
-    this.state = {
-      picList: [],  // 图片列表
-      currentIndex: 0, // 当前选中索引
-      currentDate: '',
-      currentDescription: '',
-      searchRadioValue: 'all' // 搜索单选按钮
-    }
+    this.state = this.getOwnState()
+  }
+  getOwnState(){
+    return Store.getState()
+  }
+  componentWillMount(){
+    apiGetPicList().then(res=>{
+      Store.dispatch(Actions.getNavPictures(res))
+    })
   }
   componentDidMount(){
-    // 获取图片列表
-    apiGetPicList().then(res=>{this.setState({picList: res})})
-    console.log(this.state)
+    Store.subscribe(this.onChange.bind(this))
+  }
+  onChange(){
+    this.setState(this.getOwnState())
   }
   // 点击缩略图
   clickNav(index){
     this.picCarouselRef.slick.slickGoTo(index)
-    this.setState({
-      currentIndex: index,
-      currentDate: this.state.picList[index].date,
-      currentDescription: this.state.picList[index].description
-    })
+    Store.dispatch(Actions.clickNav(index))
   }
   // 点击搜索区域radio
   clickSearchRadio(e){
-    this.setState({searchRadioValue: e.target.value})
+    Store.dispatch(Actions.searchNav(e.target.value))
   }
   render(){
+    const {navPictures, currentIndex, searchRadioValue} = this.state.sliderPic
     const picCarouselSetting = {
       dots: false,
       effect: 'fade',
@@ -47,14 +49,14 @@ class SliderPic extends Component {
     return (
       <div className="slider-pic">
         <div className="slider-pic-title">
-          <span className="slider-pic-title__date">{this.state.currentDate}</span>
-          <span className="slider-pic-title__description">{this.state.currentDescription}</span>
+          <span className="slider-pic-title__date">{}</span>
+          <span className="slider-pic-title__description">{}</span>
         </div>
         <Carousel
           {...picCarouselSetting} 
           ref={el=>(this.picCarouselRef=el)}>
           {
-            this.state.picList.map(item=>{
+            navPictures.map(item=>{
               return (
                 <div key={item.id} className="slider-pic-wrap">
                   <img src={item.bigUrl} alt="bigUrl"/>
@@ -65,9 +67,9 @@ class SliderPic extends Component {
         </Carousel>
         <div className="slider-nav-wrap">
           {
-            this.state.picList.map((item, index)=>{
+            navPictures.map((item, index)=>{
               return (
-                <div key={item.id} className={["slider-nav-item", index===this.state.currentIndex?"active":""].join(' ')} onClick={this.clickNav.bind(this, index)}>
+                <div key={item.id} className={["slider-nav-item", index===currentIndex?"active":""].join(' ')} onClick={this.clickNav.bind(this, index)}>
                   <img src={item.smallUrl} alt="smallUrl"/>
                 </div>
               )
@@ -76,7 +78,7 @@ class SliderPic extends Component {
           <div className="button-calendar">历历在目></div>
         </div>
         <div className="slider-search-group">
-          <Radio.Group onChange={this.clickSearchRadio.bind(this)} value={this.state.searchRadioValue}>
+          <Radio.Group onChange={this.clickSearchRadio.bind(this)} value={searchRadioValue}>
             {
               allSearchRadio.map(item=>{
                 return (
