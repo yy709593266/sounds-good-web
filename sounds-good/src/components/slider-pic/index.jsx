@@ -35,7 +35,9 @@ class SliderPic extends Component {
     Store.dispatch(Actions.searchNav(e.target.value))
   }
   render(){
-    const {navPictures, currentIndex, searchRadioValue} = this.state.sliderPic
+    const {navPictures, currentIndex, searchRadioValue} = this.state
+    const currentDate = navPictures.length && navPictures[currentIndex].date
+    const currentDescription = navPictures.length && navPictures[currentIndex].description
     const picCarouselSetting = {
       dots: false,
       effect: 'fade',
@@ -49,8 +51,8 @@ class SliderPic extends Component {
     return (
       <div className="slider-pic">
         <div className="slider-pic-title">
-          <span className="slider-pic-title__date">{}</span>
-          <span className="slider-pic-title__description">{}</span>
+          <p className="slider-pic-title__date">{currentDate}</p>
+          <p className="slider-pic-title__description">{currentDescription}</p>
         </div>
         <Carousel
           {...picCarouselSetting} 
@@ -90,7 +92,7 @@ class SliderPic extends Component {
           <Input.Search
             {...inputSearchSetting}>
           </Input.Search>
-          <p>{}</p>
+          <p className="bottom-description">{currentDescription}</p>
         </div>
       </div>
     )

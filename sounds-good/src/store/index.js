@@ -3,11 +3,9 @@ import reducer from './reducer'
 
 const initValue = {
   /* slider-pic组件 */
-  sliderPic: {
-    navPictures: [],  //图片列表
-    currentIndex: 0,  // 当前图片索引
-    searchRadioValue: 'all' // 搜索区域radio的值
-  }
+  navPictures: [],  //图片列表
+  currentIndex: 0,  // 当前图片索引
+  searchRadioValue: 'all' // 搜索区域radio的值
 }
 
 const store = createStore(reducer, initValue)

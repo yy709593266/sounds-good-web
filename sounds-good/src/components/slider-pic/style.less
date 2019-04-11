@@ -1,6 +1,18 @@
 @primaryColor: #FF9D00;
 .slider-pic{
   position: relative;
+  .slider-pic-title{
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    min-width: 1000px;
+    left: 50%;
+    top: 25px;
+    transform: translate(-50%, 0);
+    p{margin-bottom: 0;}
+    .slider-pic-title__date{font-size: 24px;}
+    .slider-pic-title__description{font-size: 26px;}
+  }
   .slider-pic-wrap{
     img{
       width: 100%;
@@ -58,6 +70,12 @@
     .slider-search-radio-text{
       color: #fff;
       margin-bottom: 12px;
+    }
+    .bottom-description{
+      position: absolute;
+      bottom: -45px;
+      left: 0;
+      color: @primaryColor;
     }
   }
 }
